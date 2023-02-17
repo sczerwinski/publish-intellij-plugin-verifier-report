@@ -60,7 +60,9 @@ runs:
 
     - name: Consolidate Plugin Verifier Report
       shell: bash
-      run: consolidate-report.sh ${{ inputs.plugin-verifier-report-path }} ${{ inputs.plugin-id }} ${{ inputs.plugin-version }}
+      run: |
+        consolidate-report.sh "${{ inputs.plugin-verifier-report-path }}" ${{ inputs.plugin-id }} ${{ inputs.plugin-version }}
+        summarise-report.sh "${{ inputs.plugin-verifier-report-path }}" ${{ inputs.plugin-id }} ${{ inputs.plugin-version }} "${{ inputs.report-title }}"
 
     - name: Publish Plugin Verifier Report
       uses: dtinth/markdown-report-action@v1
@@ -69,15 +71,9 @@ runs:
         title: "${{ inputs.report-title }}"
         body-file: "${{ inputs.plugin-verifier-report-path }}.md"
 
-    - name: Prepend Report Title
-      shell: bash
-      run: |
-        echo -e "## ${{ inputs.report-title }}\n" > "${{ inputs.plugin-verifier-report-path }}-comment.md"
-        cat "${{ inputs.plugin-verifier-report-path }}.md" >> "${{ inputs.plugin-verifier-report-path }}-comment.md"
-
     - name: Publish Pull Request Comment
       uses: mshick/add-pr-comment@v2
       with:
         message-id: "intellij-plugin-verifier-report"
-        message-path: "${{ inputs.plugin-verifier-report-path }}-comment.md"
+        message-path: "${{ inputs.plugin-verifier-report-path }}Summary.md"
         repo-token: "${{ inputs.repo-token }}"
