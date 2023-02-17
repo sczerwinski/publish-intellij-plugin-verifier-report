@@ -17,29 +17,21 @@
 ###############################################################################
 
 REPORT_DIR="$1"
-REPORT_PATH="${REPORT_DIR}.md"
+REPORT_PATH="${REPORT_DIR}Summary.md"
 
 PLUGIN_ID="$2"
 PLUGIN_VERSION="$3"
 
+REPORT_TITLE="$4"
+
 
 VERDICT_FILE="verification-verdict.txt"
-DEPENDENCIES_FILE="dependencies.txt"
-ERRORS_FILE="compatibility-problems.txt"
 
 VERDICT_ERROR='^([0-9]+ compatibility problems)$'
 VERDICT_WARNING='^Compatible.+$'
 VERDICT_SUCCESS='^Compatible$'
 
-h1() {
-  echo -e "\n### ${1}\n" >> "${REPORT_PATH}"
-}
-
-h2() {
-  echo -e "\n#### ${1}\n" >> "${REPORT_PATH}"
-}
-
-append_verdict() {
+append_line() {
   while read -r LINE; do
     RESULT_ICON=':question:'
 
@@ -54,58 +46,20 @@ append_verdict() {
       RESULT_ICON=':white_check_mark:'
     fi
 
-    echo -e "${RESULT_ICON} **${LINE}**" >> "${REPORT_PATH}"
-  done <"${1}"
+    echo -e "| ${1} | ${RESULT_ICON} | ${LINE} |" >> "${REPORT_PATH}"
+  done <"${2}"
 }
 
-append_as_bullets() {
-  while read -r LINE; do
-    echo -e "- ${LINE}" >> "${REPORT_PATH}"
-  done <"${1}"
-}
 
-append_as_code() {
-  echo '```' >> "${REPORT_PATH}"
+echo -e "## ${REPORT_TITLE}" > "${REPORT_PATH}"
 
-  while read -r LINE; do
-    echo -e "${LINE}" >> "${REPORT_PATH}"
-  done <"${1}"
-
-  echo '```' >> "${REPORT_PATH}"
-}
-
+echo -e "| IDE | Verification Result | Comment |" >> "${REPORT_PATH}"
+echo -e "| :-- | :-: | :-- |" >> "${REPORT_PATH}"
 
 for IDE_PATH in "${REPORT_DIR}"/*
 do
   IDE=${IDE_PATH##*/}
   IDE_REPORT_DIR="${IDE_PATH}/plugins/${PLUGIN_ID}/${PLUGIN_VERSION}"
 
-  h1 "${IDE}"
-  append_verdict "${IDE_REPORT_DIR}/${VERDICT_FILE}"
-
-  for PATH in "${IDE_REPORT_DIR}"/*
-  do
-    FILE="${PATH##*/}"
-    FILENAME="${FILE%.txt}"
-    HEADER="${FILENAME//-/ }"
-
-    case "${FILE}" in
-
-      "${VERDICT_FILE}"|"${DEPENDENCIES_FILE}")
-        ;;
-
-      "${ERRORS_FILE}")
-        h2 "${HEADER^} :stop_sign:"
-        append_as_bullets "${PATH}"
-        ;;
-
-      *)
-        h2 "${HEADER^} :warning:"
-        append_as_bullets "${PATH}"
-        ;;
-    esac
-  done
-
-  h2 "Dependencies"
-  append_as_code "${IDE_REPORT_DIR}/${DEPENDENCIES_FILE}"
+  append_line "${IDE}" "${IDE_REPORT_DIR}/${VERDICT_FILE}"
 done
