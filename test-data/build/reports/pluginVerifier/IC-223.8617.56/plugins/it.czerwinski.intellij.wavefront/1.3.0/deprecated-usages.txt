@@ -1,0 +1,1 @@
+Deprecated method com.intellij.openapi.actionSystem.ex.ComboBoxAction.createPopupActionGroup(javax.swing.JComponent button) : com.intellij.openapi.actionSystem.DefaultActionGroup is overridden in class it.czerwinski.intellij.wavefront.editor.actions.PBREnvironmentsComboBoxAction

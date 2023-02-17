@@ -1,0 +1,8 @@
+it.czerwinski.intellij.wavefront:1.3.0
++--- com.intellij:223.8617.56 [declaring module com.intellij.modules.platform]
+|    +--- (failed) unresolved (optional): Plugin unresolved is not available in Marketplace https://plugins.jetbrains.com
+|    +--- (optional) com.intellij.copyright:223.8617.56
+|    |    \--- com.intellij:223.8617.56 (*) [declaring module com.intellij.modules.lang]
+|    \--- (optional) com.intellij.platform.images:223.8617.56
+|         \--- com.intellij:223.8617.56 (*) [declaring module com.intellij.modules.lang]
+\--- (optional) com.intellij.platform.images:223.8617.56 (*)
