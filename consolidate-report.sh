@@ -27,9 +27,9 @@ VERDICT_FILE="verification-verdict.txt"
 DEPENDENCIES_FILE="dependencies.txt"
 ERRORS_FILE="compatibility-problems.txt"
 
-VERDICT_ERROR='\d+ compatibility problems'
-VERDICT_WARNING='Compatible.+'
-VERDICT_SUCCESS='Compatible'
+VERDICT_ERROR='^([0-9]+ compatibility problems)$'
+VERDICT_WARNING='^Compatible.+$'
+VERDICT_SUCCESS='^Compatible$'
 
 h1() {
   echo -e "\n### ${1}\n" >> "${REPORT_PATH}"
@@ -40,20 +40,20 @@ h2() {
 }
 
 append_verdict() {
-  RESULT_ICON=':question:'
-
-  if grep -Eq "${VERDICT_ERROR}" "${1}"
-  then
-    RESULT_ICON=':stop_sign:'
-  elif grep -Eq "${VERDICT_WARNING}" "${1}"
-  then
-    RESULT_ICON=':warning:'
-  elif grep -Eq "${VERDICT_SUCCESS}" "${1}"
-  then
-    RESULT_ICON=':white_check_mark:'
-  fi
-
   while read -r LINE; do
+    RESULT_ICON=':question:'
+
+    if [[ "${LINE}" =~ ${VERDICT_ERROR} ]]
+    then
+      RESULT_ICON=':stop_sign:'
+    elif [[ "${LINE}" =~ ${VERDICT_WARNING} ]]
+    then
+      RESULT_ICON=':warning:'
+    elif [[ "${LINE}" =~ ${VERDICT_SUCCESS} ]]
+    then
+      RESULT_ICON=':white_check_mark:'
+    fi
+
     echo -e "${RESULT_ICON} ${LINE}" >> "${REPORT_PATH}"
   done <"${1}"
 }
