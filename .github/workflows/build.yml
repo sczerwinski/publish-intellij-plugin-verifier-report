@@ -3,6 +3,7 @@ name: Build
 on:
   push:
     branches: [main]
+  pull_request:
 
 jobs:
 
@@ -17,7 +18,7 @@ jobs:
 
       - name: Run The Action
         id: run-action
-        uses: sczerwinski/publish-intellij-plugin-verifier-report@main
+        uses: ./
         with:
           plugin-id: "it.czerwinski.intellij.wavefront"
           plugin-version: "1.3.0"
