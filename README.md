@@ -14,7 +14,7 @@ Publish IntelliJ Plugin Verifier report and a pull request comment.
       - run: ./gradlew runPluginVerifier
 
       - if: ${{ always() }}
-        uses: sczerwinski/publish-intellij-plugin-verifier-report@v1.0.0
+        uses: sczerwinski/publish-intellij-plugin-verifier-report@v1.1.0
         with:
           plugin-id: "my.plugin.id"
           plugin-version: "1.0.0"
@@ -31,7 +31,7 @@ Notes:
       - run: ./gradlew runPluginVerifier
 
       - if: ${{ always() }}
-        uses: sczerwinski/publish-intellij-plugin-verifier-report@v1.0.0
+        uses: sczerwinski/publish-intellij-plugin-verifier-report@v1.1.0
         with:
           plugin-id: "my.plugin.id"
           plugin-version: "1.0.0"
