@@ -1,0 +1,24 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+
+  runAction:
+    runs-on: ubuntu-latest
+    name: Run The Action
+
+    steps:
+
+      - name: Fetch Sources
+        uses: actions/checkout@v3
+
+      - name: Run The Action
+        id: run-action
+        uses: sczerwinski/publish-intellij-plugin-verifier-report@main
+        with:
+          plugin-id: "it.czerwinski.intellij.wavefront"
+          plugin-version: "1.3.0"
+          plugin-verifier-report-path: "${{ github.workspace }}/test-data/build/reports/pluginVerifier"
