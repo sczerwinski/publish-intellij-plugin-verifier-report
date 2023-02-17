@@ -23,8 +23,13 @@ PLUGIN_ID="$2"
 PLUGIN_VERSION="$3"
 
 
-RESULT_FILE="verification-verdict.txt"
+VERDICT_FILE="verification-verdict.txt"
 DEPENDENCIES_FILE="dependencies.txt"
+ERRORS_FILE="compatibility-problems.txt"
+
+VERDICT_ERROR='\d+ compatibility problems'
+VERDICT_WARNING='Compatible.+'
+VERDICT_SUCCESS='Compatible'
 
 h1() {
   echo -e "\n### ${1}\n" >> "${REPORT_PATH}"
@@ -34,9 +39,22 @@ h2() {
   echo -e "\n#### ${1}\n" >> "${REPORT_PATH}"
 }
 
-append() {
+append_verdict() {
+  RESULT_ICON=':question:'
+
+  if grep -Eq "${VERDICT_ERROR}" "${1}"
+  then
+    RESULT_ICON=':stop_sign:'
+  elif grep -Eq "${VERDICT_WARNING}" "${1}"
+  then
+    RESULT_ICON=':warning:'
+  elif grep -Eq "${VERDICT_SUCCESS}" "${1}"
+  then
+    RESULT_ICON=':white_check_mark:'
+  fi
+
   while read -r LINE; do
-    echo -e "${LINE}" >> "${REPORT_PATH}"
+    echo -e "${RESULT_ICON} ${LINE}" >> "${REPORT_PATH}"
   done <"${1}"
 }
 
@@ -63,7 +81,7 @@ do
   IDE_REPORT_DIR="${IDE_PATH}/plugins/${PLUGIN_ID}/${PLUGIN_VERSION}"
 
   h1 ":receipt: ${IDE}"
-  append "${IDE_REPORT_DIR}/${RESULT_FILE}"
+  append_verdict "${IDE_REPORT_DIR}/${VERDICT_FILE}"
 
   for PATH in "${IDE_REPORT_DIR}"/*
   do
@@ -73,10 +91,12 @@ do
 
     case "${FILE}" in
 
-      "${RESULT_FILE}")
+      "${VERDICT_FILE}"|"${DEPENDENCIES_FILE}")
         ;;
 
-      "${DEPENDENCIES_FILE}")
+      "${ERRORS_FILE}")
+        h2 ":stop_sign: ${HEADER^}"
+        append_as_bullets "${PATH}"
         ;;
 
       *)
