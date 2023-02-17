@@ -1,30 +1,65 @@
+###############################################################################
+#    Copyright 2023 Slawomir Czerwinski
+#
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+#
+#        http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+###############################################################################
+
 name: 'Publish IntelliJ Plugin Verifier Report'
 description: 'Publish IntelliJ Plugin Verifier report as a pull request comment.'
+author: 'Slawomir Czerwinski'
 
+branding:
+  icon: 'check-square'
+  color: 'purple'
+
+# Plugin inputs:
 inputs:
+
   plugin-id:
     description: 'IntelliJ plugin ID'
     required: true
+
   plugin-version:
     description: 'IntelliJ plugin version'
     required: true
+
   plugin-verifier-report-path:
     description: 'Path to IntelliJ Plugin Verifier output report'
     required: true
     default: "${{ github.workspace }}/build/reports/pluginVerifier"
+
   repo-token:
     description: 'Repository token'
     required: true
     default: "${{ github.token }}"
+
+# Plugin script:
 runs:
   using: "composite"
+
   steps:
+
+    - name: Update Working Directory
+      shell: bash
+      run: echo "${{ github.action_path }}" >> $GITHUB_PATH
+
     - name: Consolidate Plugin Verifier Report
       shell: bash
-      run: |
-        ./verifier-report ${{ inputs.plugin-verifier-report-path }} ${{ inputs.plugin-id }} ${{ inputs.plugin-version }}
+      run: consolidate-report.sh ${{ inputs.plugin-verifier-report-path }} ${{ inputs.plugin-id }} ${{ inputs.plugin-version }}
+
     - name: Publish Plugin Verifier Report
       uses: mshick/add-pr-comment@v2
       with:
-        message-path: "${{ github.plugin-verifier-report-path }}.md"
+        message-id: "intellij-plugin-verifier-report"
+        message-path: "${{ inputs.plugin-verifier-report-path }}.md"
         repo-token: "${{ inputs.repo-token }}"
