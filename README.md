@@ -1,8 +1,10 @@
 # Publish IntelliJ Plugin Verifier Report
 
-Publish IntelliJ Plugin Verifier report as a pull request comment.
+Publish IntelliJ Plugin Verifier report and a pull request comment.
 
-![Example](https://raw.githubusercontent.com/sczerwinski/publish-intellij-plugin-verifier-report/main/publish-intellij-plugin-verifier-report-example.png)
+![Report](https://raw.githubusercontent.com/sczerwinski/publish-intellij-plugin-verifier-report/main/example-report.png)
+
+![PR Comment](https://raw.githubusercontent.com/sczerwinski/publish-intellij-plugin-verifier-report/main/example-summary.png)
 
 ## Usage
 
