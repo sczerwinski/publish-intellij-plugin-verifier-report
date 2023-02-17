@@ -44,8 +44,11 @@ Notes:
 | `plugin-id`                   | IntelliJ plugin ID                             |    Y     |                                                        |
 | `plugin-version`              | IntelliJ plugin version                        |    Y     |                                                        |
 | `plugin-verifier-report-path` | Path to IntelliJ Plugin Verifier output report |    N     | `${{ github.workspace }}/build/reports/pluginVerifier` |
-| `plugin-id`                   | Repository token                               |    N     | `${{ github.token }}`                                  |
+| `report-title`                | Report title                                   |    N     | Plugin Verification Results                            |
+| `repo-token`                  | Repository token                               |    N     | `${{ github.token }}`                                  |
 
 ## Credits
 
-This action uses [mshick/add-pr-comment](https://github.com/mshick/add-pr-comment).
+This action uses:
+- [mshick/add-pr-comment](https://github.com/mshick/add-pr-comment)
+- [dtinth/markdown-report-action](https://github.com/dtinth/markdown-report-action)

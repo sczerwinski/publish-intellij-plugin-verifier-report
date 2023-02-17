@@ -26,10 +26,6 @@ PLUGIN_VERSION="$3"
 RESULT_FILE="verification-verdict.txt"
 DEPENDENCIES_FILE="dependencies.txt"
 
-title() {
-  echo -e "## ${1}\n" > "${REPORT_PATH}"
-}
-
 h1() {
   echo -e "\n### ${1}\n" >> "${REPORT_PATH}"
 }
@@ -60,8 +56,6 @@ append_as_code() {
   echo '```' >> "${REPORT_PATH}"
 }
 
-
-title "Plugin Verifier Results"
 
 for IDE_PATH in "${REPORT_DIR}"/*
 do
