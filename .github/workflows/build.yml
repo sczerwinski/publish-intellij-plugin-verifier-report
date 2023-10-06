@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Run The Action
 
+    permissions:
+      checks: write
+      pull-requests: write
+
     steps:
 
       - name: Fetch Sources
