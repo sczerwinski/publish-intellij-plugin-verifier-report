@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Run The Action
 
+    permissions:
+      checks: write
+
     steps:
 
       - name: Fetch Sources
