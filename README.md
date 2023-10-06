@@ -11,8 +11,23 @@ Publish IntelliJ Plugin Verifier report and a pull request comment.
 ### Required Configuration
 
 ```yml
+jobs:
+
+  pluginVerifier:
+
+    runs-on: ubuntu-latest
+
+    # Required permissions:
+    permissions:
+      checks: write
+      pull-requests: write
+
+    steps:
+
+      # Run Plugin Verifier before publishing the report:
       - run: ./gradlew runPluginVerifier
 
+      # Publish report even if Plugin Verifier has failed:
       - if: ${{ always() }}
         uses: sczerwinski/publish-intellij-plugin-verifier-report@v1.1.0
         with:
@@ -20,18 +35,17 @@ Publish IntelliJ Plugin Verifier report and a pull request comment.
           plugin-version: "1.0.0"
 ```
 
-Notes:
+**Notes:**
 
+- The action must run with permissions `checks: write` and `pull-requests: write`.
 - The plugin step should run **after** `./gradlew runPluginVerifier` is completed.
 - Use `always()` to run the plugin even after `runPluginVerifier` fails.
+- Parameters `plugin-id` and `plugin-version` are required.
 
 ### Optional Configuration
 
 ```yml
-      - run: ./gradlew runPluginVerifier
-
-      - if: ${{ always() }}
-        uses: sczerwinski/publish-intellij-plugin-verifier-report@v1.1.0
+      - uses: sczerwinski/publish-intellij-plugin-verifier-report@v1.1.0
         with:
           plugin-id: "my.plugin.id"
           plugin-version: "1.0.0"
