@@ -29,7 +29,7 @@ jobs:
 
       # Publish report even if Plugin Verifier has failed:
       - if: ${{ always() }}
-        uses: sczerwinski/publish-intellij-plugin-verifier-report@v1.1.0
+        uses: sczerwinski/publish-intellij-plugin-verifier-report@v1.1.1
         with:
           plugin-id: "my.plugin.id"
           plugin-version: "1.0.0"
@@ -45,7 +45,7 @@ jobs:
 ### Optional Configuration
 
 ```yml
-      - uses: sczerwinski/publish-intellij-plugin-verifier-report@v1.1.0
+      - uses: sczerwinski/publish-intellij-plugin-verifier-report@v1.1.1
         with:
           plugin-id: "my.plugin.id"
           plugin-version: "1.0.0"
