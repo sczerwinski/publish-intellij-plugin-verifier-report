@@ -12,3 +12,4 @@ Method it.czerwinski.intellij.wavefront.actions.GenerateBRDFIntegrationMapAction
 Method it.czerwinski.intellij.wavefront.editor.actions.PBREnvironmentAction.getActionUpdateThread() : ActionUpdateThread references an unresolved class com.intellij.openapi.actionSystem.ActionUpdateThread. This can lead to **NoSuchClassError** exception at runtime.
 Method it.czerwinski.intellij.wavefront.editor.actions.UpVectorAction.getActionUpdateThread() : ActionUpdateThread references an unresolved class com.intellij.openapi.actionSystem.ActionUpdateThread. This can lead to **NoSuchClassError** exception at runtime.
 Method it.czerwinski.intellij.wavefront.editor.actions.ToggleAxesAction.getActionUpdateThread() : ActionUpdateThread references an unresolved class com.intellij.openapi.actionSystem.ActionUpdateThread. This can lead to **NoSuchClassError** exception at runtime.
+

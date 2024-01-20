@@ -69,7 +69,9 @@ append_as_properties() {
 
 append_as_bullets() {
   while read -r LINE; do
-    echo -e "- ${LINE}" >> "${REPORT_PATH}"
+    if [[ -n "${LINE}" ]]; then
+      echo -e "- ${LINE}" >> "${REPORT_PATH}"
+    fi
   done <"${1}"
 }
 
