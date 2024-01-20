@@ -62,7 +62,7 @@ append_verdict() {
 append_as_properties() {
   while read -r LINE; do
     if [[ -n "${LINE}" ]]; then
-      echo -e "${LINE%%:.*}: ${LINE#.*:}" >> "${REPORT_PATH}"
+      echo -e "**${LINE%%:.*}:** ${LINE#.*:}" >> "${REPORT_PATH}"
     fi
   done <"${1}"
 }
