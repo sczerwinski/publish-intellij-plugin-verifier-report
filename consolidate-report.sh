@@ -24,6 +24,7 @@ PLUGIN_VERSION="$3"
 
 
 VERDICT_FILE="verification-verdict.txt"
+TELEMETRY_FILE="telemetry.txt"
 DEPENDENCIES_FILE="dependencies.txt"
 ERRORS_FILE="compatibility-problems.txt"
 
@@ -58,6 +59,14 @@ append_verdict() {
   done <"${1}"
 }
 
+append_as_properties() {
+  while read -r LINE; do
+    if [[ -n "${LINE}" ]]; then
+      echo -e "**${LINE%%:*}:** ${LINE#*:}" >> "${REPORT_PATH}"
+    fi
+  done <"${1}"
+}
+
 append_as_bullets() {
   while read -r LINE; do
     echo -e "- ${LINE}" >> "${REPORT_PATH}"
@@ -83,6 +92,9 @@ do
   h1 "${IDE}"
   append_verdict "${IDE_REPORT_DIR}/${VERDICT_FILE}"
 
+  h2 "Telemetry"
+  append_as_properties "${IDE_REPORT_DIR}/${TELEMETRY_FILE}"
+
   for PATH in "${IDE_REPORT_DIR}"/*
   do
     FILE="${PATH##*/}"
@@ -91,7 +103,7 @@ do
 
     case "${FILE}" in
 
-      "${VERDICT_FILE}"|"${DEPENDENCIES_FILE}")
+      "${VERDICT_FILE}"|"${DEPENDENCIES_FILE}"|"${TELEMETRY_FILE}")
         ;;
 
       "${ERRORS_FILE}")

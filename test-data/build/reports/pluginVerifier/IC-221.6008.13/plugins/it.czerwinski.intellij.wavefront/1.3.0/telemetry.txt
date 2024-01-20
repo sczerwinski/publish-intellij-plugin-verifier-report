@@ -1,0 +1,9 @@
+Plugin ID: it.czerwinski.intellij.wavefront
+Plugin Version: 1.3.0
+Descriptor parsed in: 562 ms
+Descriptor parsed (raw ms): 562
+Plugin size (bytes): 22176392
+Verified classes in plugin artifact: 921
+Verification time: 3 s 292 ms
+Verification time (raw ms): 3292
+
