@@ -72,7 +72,7 @@ runs:
         body-file: "${{ inputs.plugin-verifier-report-path }}.md"
 
     - name: Publish Pull Request Comment
-      uses: mshick/add-pr-comment@v2
+      uses: mshick/add-pr-comment@v3
       with:
         message-id: "intellij-plugin-verifier-report"
         message-path: "${{ inputs.plugin-verifier-report-path }}Summary.md"
