@@ -63,3 +63,5 @@ do
 
   append_line "${IDE}" "${IDE_REPORT_DIR}/${VERDICT_FILE}"
 done
+
+truncate --size=64k "${REPORT_PATH}"
