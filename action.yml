@@ -43,6 +43,11 @@ inputs:
     required: true
     default: 'Plugin Verification Results'
 
+  pr-comment-id:
+    description: 'Pull Request comment ID'
+    required: true
+    default: 'intellij-plugin-verifier-report'
+
   repo-token:
     description: 'Repository token'
     required: true
@@ -74,6 +79,6 @@ runs:
     - name: Publish Pull Request Comment
       uses: mshick/add-pr-comment@v3
       with:
-        message-id: "intellij-plugin-verifier-report"
+        message-id: "${{ inputs.pr-comment-id }}"
         message-path: "${{ inputs.plugin-verifier-report-path }}Summary.md"
         repo-token: "${{ inputs.repo-token }}"
