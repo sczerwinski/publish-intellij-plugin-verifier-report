@@ -83,7 +83,7 @@ append_as_code() {
     echo -e "${LINE}" >> "${REPORT_PATH}"
     LINES_COUNT=$((LINES_COUNT+1))
     if [[ $LINES_COUNT -gt 10 ]]; then
-      echo -e "..." >> "${REPORT_PATH}"
+      echo -e "[...]" >> "${REPORT_PATH}"
       break
     fi
   done <"${1}"
