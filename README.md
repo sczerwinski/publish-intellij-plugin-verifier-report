@@ -61,6 +61,7 @@ jobs:
 | `plugin-version`              | IntelliJ plugin version                        |    Y     |                                                        |
 | `plugin-verifier-report-path` | Path to IntelliJ Plugin Verifier output report |    N     | `${{ github.workspace }}/build/reports/pluginVerifier` |
 | `report-title`                | Report title                                   |    N     | Plugin Verification Results                            |
+| `pr-comment-id`               | Pull Request comment ID                        |    N     | `intellij-plugin-verifier-report`                      |
 | `repo-token`                  | Repository token                               |    N     | `${{ github.token }}`                                  |
 
 ## Credits

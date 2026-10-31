@@ -27,3 +27,13 @@ jobs:
           plugin-id: "it.czerwinski.intellij.wavefront"
           plugin-version: "1.3.0"
           plugin-verifier-report-path: "${{ github.workspace }}/test-data/build/reports/pluginVerifier"
+
+      - name: Produce Second Comment
+        id: produce-second-comment
+        uses: ./
+        with:
+          plugin-id: "it.czerwinski.intellij.wavefront"
+          plugin-version: "1.3.0"
+          plugin-verifier-report-path: "${{ github.workspace }}/test-data/build/reports/pluginVerifier"
+          report-title: Second Comment
+          pr-comment-id: intellij-plugin-verifier-report-2
