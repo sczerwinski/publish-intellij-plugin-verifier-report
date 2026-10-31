@@ -60,8 +60,8 @@ jobs:
 | `plugin-id`                   | IntelliJ plugin ID                             |    Y     |                                                        |
 | `plugin-version`              | IntelliJ plugin version                        |    Y     |                                                        |
 | `plugin-verifier-report-path` | Path to IntelliJ Plugin Verifier output report |    N     | `${{ github.workspace }}/build/reports/pluginVerifier` |
-| `publish-report` | Flag for publishing report |N | `true`|
-| `publish-summary` | Flag for publishing PR comment with summary |N | `true`|
+| `skip-report` | Flag for skipping report |N | |
+| `skip-summary` | Flag for skipping PR comment with summary |N | |
 | `report-title`                | Report title                                   |    N     | Plugin Verification Results                            |
 | `pr-comment-id`               | Pull Request comment ID                        |    N     | `intellij-plugin-verifier-report`                      |
 | `repo-token`                  | Repository token                               |    N     | `${{ github.token }}`                                  |
