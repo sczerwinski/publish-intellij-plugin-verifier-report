@@ -123,3 +123,10 @@ do
   h2 "Dependencies"
   append_as_code "${IDE_REPORT_DIR}/${DEPENDENCIES_FILE}"
 done
+
+REPORT_SIZE=$(stat -c%s "${REPORT_PATH}")
+
+if [ "${REPORT_SIZE}" -gt 65535 ]
+then
+  truncate --size=65535 "${REPORT_PATH}"
+fi
