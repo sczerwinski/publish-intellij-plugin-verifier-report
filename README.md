@@ -50,8 +50,18 @@ jobs:
           plugin-id: "my.plugin.id"
           plugin-version: "1.0.0"
           plugin-verifier-report-path: "${{ github.workspace }}/plugin/build/reports/pluginVerifier"
+          skip-report: true
+          skip-comment: true
+          report-title: Verification Report
+          pr-comment-id: intellij-plugin-verifier-report-2
           repo-token: "${{ my-secret-token }}"
 ```
+
+**Notes:**
+
+- If `skip-report` is defined, this action will skip publishing Plugin Verifier report.
+- If `skip-summary` is defined, this action will skip publishing PR comment with summary.
+- If running this action multiple times, use different `pr-comment-id` to prevent overwriting single summary comment.
 
 ## Options
 
@@ -60,6 +70,8 @@ jobs:
 | `plugin-id`                   | IntelliJ plugin ID                             |    Y     |                                                        |
 | `plugin-version`              | IntelliJ plugin version                        |    Y     |                                                        |
 | `plugin-verifier-report-path` | Path to IntelliJ Plugin Verifier output report |    N     | `${{ github.workspace }}/build/reports/pluginVerifier` |
+| `skip-report` | Flag for skipping report |N | |
+| `skip-summary` | Flag for skipping PR comment with summary |N | |
 | `report-title`                | Report title                                   |    N     | Plugin Verification Results                            |
 | `pr-comment-id`               | Pull Request comment ID                        |    N     | `intellij-plugin-verifier-report`                      |
 | `repo-token`                  | Repository token                               |    N     | `${{ github.token }}`                                  |

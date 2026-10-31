@@ -38,6 +38,16 @@ inputs:
     required: true
     default: "${{ github.workspace }}/build/reports/pluginVerifier"
 
+  skip-report:
+    description: 'Flag for skipping report'
+    required: true
+    default: ''
+
+  skip-summary:
+    description: 'Flag for skipping PR comment with summary'
+    required: true
+    default: ''
+
   report-title:
     description: 'Report title'
     required: true
@@ -70,6 +80,7 @@ runs:
         summarise-report.sh "${{ inputs.plugin-verifier-report-path }}" ${{ inputs.plugin-id }} ${{ inputs.plugin-version }} "${{ inputs.report-title }}"
 
     - name: Publish Plugin Verifier Report
+      if: ${{ !inputs.skip-report }}
       uses: dtinth/markdown-report-action@v1
       with:
         name: "${{ inputs.report-title }}"
@@ -77,6 +88,7 @@ runs:
         body-file: "${{ inputs.plugin-verifier-report-path }}.md"
 
     - name: Publish Pull Request Comment
+      if: ${{ !inputs.skip-summary }}
       uses: mshick/add-pr-comment@v3
       with:
         message-id: "${{ inputs.pr-comment-id }}"
