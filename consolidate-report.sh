@@ -78,8 +78,14 @@ append_as_bullets() {
 append_as_code() {
   echo '```' >> "${REPORT_PATH}"
 
+  LINES_COUNT=0
   while read -r LINE; do
     echo -e "${LINE}" >> "${REPORT_PATH}"
+    LINES_COUNT=$((LINES_COUNT+1))
+    if [[ $LINES_COUNT -gt 10 ]]; then
+      echo -e "[...]" >> "${REPORT_PATH}"
+      break
+    fi
   done <"${1}"
 
   echo '```' >> "${REPORT_PATH}"
@@ -123,10 +129,3 @@ do
   h2 "Dependencies"
   append_as_code "${IDE_REPORT_DIR}/${DEPENDENCIES_FILE}"
 done
-
-REPORT_SIZE=$(stat -c%s "${REPORT_PATH}")
-
-if [ "${REPORT_SIZE}" -gt 65535 ]
-then
-  truncate --size=65535 "${REPORT_PATH}"
-fi
